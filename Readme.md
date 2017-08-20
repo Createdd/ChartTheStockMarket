@@ -8,13 +8,9 @@
 # Chart the Stock Market
 [![Travis CI](https://travis-ci.org/DDCreationStudios/ChartTheStockMarket.svg?branch=master)](https://travis-ci.org/DDCreationStudios/ChartTheStockMarket) [![Heroku](http://heroku-badge.herokuapp.com/?app=createdd-stockmarketchart&style=flat&svg=1)](https://createdd-stockmarketchart.herokuapp.com/) [![Dependency Status](https://gemnasium.com/badges/github.com/DDCreationStudios/ChartTheStockMarket.svg)](https://gemnasium.com/github.com/DDCreationStudios/ChartTheStockMarket)
 
-
-<img src="http://g.recordit.co/1hzd8ISznt.gif" alt="gif"/>
-
-<!--- ![img](./public/img/screenshot.png) -->
+<p align="center"><img src="" alt="gif"/></p>
 
 ## See live on Heroku
-
 
 <p align="center">(Keep in mind that I am using the free tier version on Heroku, which can shut down when traffic is too high in a certain time period)</p>
 <p align="center"> 
@@ -109,10 +105,8 @@
 
 ## Issues / Bugs / Further features 
 
-There are already issues open! Feel free to add feedback: [![GitHub issues](https://img.shields.io/github/issues/DDCreationStudios/votingApp.svg?colorB=b342f4)](https://github.com/DDCreationStudios/votingApp/issues)
+There are already issues open! Feel free to add feedback: [![GitHub issues](https://img.shields.io/github/issues/DDCreationStudios/ChartTheStockMarket.svg?colorB=b342f4)](https://github.com/DDCreationStudios/votingApp/issues)
 
-
-<p align="center"><img src="" alt="gif"/></p>
 
 ## Scaffolded with [Create React App](https://github.com/facebookincubator/create-react-app)
 
