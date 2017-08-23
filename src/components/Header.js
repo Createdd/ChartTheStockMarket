@@ -5,9 +5,9 @@ const Header = () => {
 		<div className="navbar-fixed">
 			<nav>
 				<div className="nav-wrapper grey darken-4">
-					<a href="#!" className="brand-logo">
+					<a href="/" className="brand-logo">
 						<i className="fa fa-line-chart material-icons" aria-hidden="true" />
-						Chart the Stock Market
+						Stock Chart
 					</a>
 				</div>
 			</nav>
