@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Collapsible = props => {
-	const renderStocks = props.examples.map((elem, ind) => {
+	const renderStocks = props.stocks.map((elem, ind) => {
 		return (
 			<li key={ind}>
 				<div className="collapsible-header grey darken-3 blue-grey-text text-lighten-3">

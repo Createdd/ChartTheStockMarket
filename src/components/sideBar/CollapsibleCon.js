@@ -1,13 +1,14 @@
 import React from 'react';
-import Collapsible from './Collapsible';
-import FB from '../../exampleData/FB';
-import TSLA from '../../exampleData/TSLA';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class CollapsibleCon extends React.Component {
+import Collapsible from './Collapsible';
+import { addStock } from '../../ducks/stocks';
+
+class CollapsibleCon extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			examples: [FB, TSLA],
 			value: ''
 		};
 		this.addStock = this.addStock.bind(this);
@@ -19,12 +20,12 @@ export default class CollapsibleCon extends React.Component {
 	addStock(e) {
 		e.preventDefault();
 		console.log('Sent stock Code: ' + this.state.value);
-		this.setState({ value: "" });
+		this.setState({ value: '' });
 	}
 	render() {
 		return (
 			<Collapsible
-				examples={this.state.examples}
+				stocks={this.props.stocks}
 				addStock={this.addStock}
 				onChange={this.handleChange}
 				value={this.state.value}
@@ -32,3 +33,20 @@ export default class CollapsibleCon extends React.Component {
 		);
 	}
 }
+
+const mapStateToProps = state => ({
+	stocks: state.stocks
+});
+
+export default connect(mapStateToProps, { addStock })(CollapsibleCon);
+
+CollapsibleCon.propTypes = {
+	stocks: PropTypes.arrayOf(
+		PropTypes.shape({
+			dataset: PropTypes.shape({
+				database_code: PropTypes.string.isRequired,
+				name: PropTypes.string.isRequired
+			})
+		})
+	).isRequired
+};
