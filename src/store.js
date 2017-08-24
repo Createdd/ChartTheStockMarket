@@ -2,13 +2,10 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
 // import reducers
-
-import FB from './exampleData/FB';
-import TSLA from './exampleData/TSLA';
 import stocks from './ducks/stocks';
 
 const defaultState = {
-  stocks: [FB, TSLA],
+  stocks: [],
 };
 
 const rootReducer = combineReducers({

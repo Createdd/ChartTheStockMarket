@@ -7,6 +7,7 @@ import { fetchStock } from '../../ducks/stocks';
 
 class CollapsibleCon extends React.Component {
 	constructor(props) {
+
 		super(props);
 		this.state = {
 			value: ''
@@ -14,6 +15,11 @@ class CollapsibleCon extends React.Component {
 		this.addStock = this.addStock.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
+	componentWillMount() {
+		this.props.fetchStock("TSLA");
+		this.props.fetchStock("GOOGL");
+	}
+
 	handleChange(e) {
 		this.setState({ value: e.target.value });
 	}
