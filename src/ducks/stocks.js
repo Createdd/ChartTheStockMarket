@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as toastr from 'toastr';
-import { toastOptions } from '../config';
+import { toastOptions } from '../helper';
 
 // Actions
 const ADD_STOCK = 'ADD_STOCK';

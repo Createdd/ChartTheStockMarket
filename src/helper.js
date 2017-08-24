@@ -1,5 +1,14 @@
 import * as toastr from 'toastr';
 
+export const calculateTicks = (dates) => {
+  const tick = Math.floor(dates.length / 10);
+  const tickValues = [];
+  for (var j = 0; j < dates.length; j = j + tick) {
+    tickValues.push(dates[j]);
+  }
+  return tickValues;
+}
+
 export const toastOptions = toastr.options = {
   "closeButton": false,
   "debug": false,
