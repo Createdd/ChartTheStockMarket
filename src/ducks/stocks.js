@@ -1,15 +1,21 @@
 import axios from 'axios';
 
 // Actions
-const FETCHED_STOCK = 'FETCHED_STOCK';
 const ADD_STOCK = 'ADD_STOCK';
-const DELETE_STOCK = 'DELETE_STOCK';
+const REMOVE_STOCK = 'DELETE_STOCK';
 
 // reducer
 export default function Stocks(state = [], action) {
 	switch (action.type) {
 		case ADD_STOCK: {
 			return [...state, action.stockData];
+		}
+		case REMOVE_STOCK: {
+			const removeQuestionList = [
+				...state.slice(0, action.index),
+				...state.slice(action.index + 1)
+			];
+			return removeQuestionList;
 		}
 		default:
 			return state;
@@ -23,6 +29,12 @@ export function addStock(stockData) {
 		stockData
 	};
 }
+export function removeStock(index) {
+	return {
+		type: REMOVE_STOCK,
+		index
+	};
+}
 
 // Async actions with thunk
 export function fetchStock(stockCode) {
@@ -34,7 +46,7 @@ export function fetchStock(stockCode) {
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
-				console.log(res.data);
+				// console.log(res.data);
 			})
 			.catch(err => {
 				console.warn(err);
