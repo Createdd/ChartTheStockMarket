@@ -5,6 +5,7 @@ import $ from 'jquery';
 import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min.js';
 import 'toastr/build/toastr.css';
+import 'react-vis/dist/style.css';
 
 import App from './components/App';
 import store from './store';
