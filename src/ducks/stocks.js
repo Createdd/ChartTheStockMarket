@@ -1,4 +1,6 @@
 import axios from 'axios';
+import * as toastr from 'toastr';
+import { toastOptions } from '../config';
 
 // Actions
 const ADD_STOCK = 'ADD_STOCK';
@@ -49,6 +51,7 @@ export function fetchStock(stockCode) {
 				// console.log(res.data);
 			})
 			.catch(err => {
-				console.warn(err);
+				console.error(err);
+				toastr['warning'](' ', 'Stock Code cannot be found!');
 			});
 }
