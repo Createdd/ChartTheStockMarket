@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Collapsible from './Collapsible';
-import { addStock } from '../../ducks/stocks';
+import { fetchStock } from '../../ducks/stocks';
 
 class CollapsibleCon extends React.Component {
 	constructor(props) {
@@ -19,7 +19,7 @@ class CollapsibleCon extends React.Component {
 	}
 	addStock(e) {
 		e.preventDefault();
-		console.log('Sent stock Code: ' + this.state.value);
+		this.props.fetchStock(this.state.value);
 		this.setState({ value: '' });
 	}
 	render() {
@@ -38,7 +38,7 @@ const mapStateToProps = state => ({
 	stocks: state.stocks
 });
 
-export default connect(mapStateToProps, { addStock })(CollapsibleCon);
+export default connect(mapStateToProps, { fetchStock })(CollapsibleCon);
 
 CollapsibleCon.propTypes = {
 	stocks: PropTypes.arrayOf(
