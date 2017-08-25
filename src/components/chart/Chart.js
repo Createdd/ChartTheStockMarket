@@ -11,7 +11,7 @@ import {
 } from 'react-vis';
 
 const Plot = ({ width, props }) =>
-	<XYPlot height={180} width={width} >
+	<XYPlot height={500} width={width} style={{backgroundColor: "c2c4c6"}}  >
 		<HorizontalGridLines />
 		<VerticalGridLines />
 		<XAxis
@@ -19,7 +19,7 @@ const Plot = ({ width, props }) =>
 			tickFormat={d => `${new Date(d).getMonth()}-${new Date(d).getFullYear()}`}
 			title="Date"
 		/>
-		<YAxis title="Price" />
+		<YAxis title="Value" />
 		<LineMarkSeries data={props.data} color="green" size={0.1} />
 	</XYPlot>;
 

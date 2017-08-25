@@ -18,7 +18,7 @@ class App extends Component {
 				<Header />
 				<main className="grey">
 					<div className="row">
-						<div className="col s12 m9 white">
+						<div className="col s12 m9">
 							<ChartCon />
 						</div>
 						<div className="col s12 m3">
