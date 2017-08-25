@@ -38,11 +38,10 @@ class ChartCon extends React.Component {
 					});
 				}
 			});
-			console.log(tickValues);
 
 			return (
 				<div>
-					<Chart data={data} tickValues={tickValues} />
+					<Chart data={data} tickValues={tickValues} stocks={props.stocks} />
 				</div>
 			);
 		}

@@ -6,7 +6,7 @@ import {
 	XAxis,
 	XYPlot,
 	YAxis,
-	LineMarkSeries,
+	LineSeries,
 	Borders,
 	GradientDefs,
 	linearGradient,
@@ -18,12 +18,14 @@ export default class Chart extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			crosshairValues: []
+			crosshairValues: [{ x: 0, y: 0 }, { x: 0, y: 0 }]
 		};
 	}
 
-	render() {
-		const gradient = (
+	componentWillMount() {}
+
+	gradient() {
+		return (
 			<GradientDefs>
 				<linearGradient id="borderGradient" gradientUnits="userSpaceOnUse">
 					<stop offset="10%" stopColor="#455a64" stopOpacity={0.3} />
@@ -33,36 +35,80 @@ export default class Chart extends React.Component {
 				</linearGradient>
 			</GradientDefs>
 		);
-		const renderLines = props => {
-			return props.data.map((line, ind) => {
-				return (
-					<LineMarkSeries
-						data={line}
-						color={
-							'#' + (Math.random().toString(16) + '000000').substring(2, 8)
-						}
-						size={0.1}
-						key={ind}
-						onNearestX={(value, {index}) =>
-						this.setState({crosshairValues: props.data.map(d => d[index])})}
-					/>
-				);
-			});
-		};
-		const renderLongestTimeperiod = props => {
-			props.tickValues.sort();
-		};
+	}
 
-		const Plot = ({ width, props }) =>
+	// '#' + (Math.random().toString(16) + '000000').substring(2, 8)
+	renderLines(props) {
+		return props.data.map((line, ind) => {
+			return (
+				<LineSeries
+					data={line}
+					color="red"
+					size={0.1}
+					key={ind}
+					onNearestX={(value, { index }) =>
+						this.setState({ crosshairValues: props.data.map(d => d[index]) })}
+				/>
+			);
+		});
+	}
+
+	renderCrosshair(props) {
+		return (
+			<Crosshair values={this.state.crosshairValues}>
+				<div
+					style={{
+						background: 'black',
+						minWidth: '7em',
+						padding: '1em',
+						fontSize: '14px',
+						color: 'white'
+					}}
+				>
+					<p>
+						Date:
+						{this.state.crosshairValues[0] === undefined
+							? new Date(this.state.crosshairValues[1].x).getMonth() +
+								'-' +
+								new Date(this.state.crosshairValues[1].x).getFullYear()
+							: new Date(this.state.crosshairValues[0].x).getMonth() +
+								'-' +
+								new Date(this.state.crosshairValues[0].x).getFullYear()}
+					</p>
+					{this.state.crosshairValues.map(
+						(elem, ind) =>
+							elem === undefined
+								? 'No data'
+								: <p key={ind}>
+										{props.stocks[ind] === undefined
+											? 'No data'
+											: props.stocks[ind].dataset.dataset_code +
+												': ' +
+												elem.y +
+												' $'}
+									</p>
+					)}
+				</div>
+			</Crosshair>
+		);
+	}
+
+	renderLongestTimeperiod(props) {
+		props.tickValues.sort();
+	}
+
+	Plot = ({ width, props }) => {
+		return (
 			<XYPlot
 				onMouseLeave={() => this.setState({ crosshairValues: [] })}
 				height={500}
 				width={width}
 				style={{ backgroundColor: '#c2c4c6' }}
 			>
+				{this.renderCrosshair(props)}
 				<HorizontalGridLines />
 				<VerticalGridLines />
-				{renderLongestTimeperiod(props)}
+				{this.renderLongestTimeperiod(props)}
 				<XAxis
 					tickValues={props.tickValues[0]}
 					tickFormat={d =>
@@ -70,8 +116,8 @@ export default class Chart extends React.Component {
 					title="Date"
 				/>
 				<YAxis title="Value" />
-				{renderLines(props)}
-				{gradient}
+				{this.renderLines(props)}
+				{this.gradient()}
 				<Borders
 					style={{
 						right: { fill: '#c2c4c6' },
@@ -80,12 +126,17 @@ export default class Chart extends React.Component {
 						left: { fill: 'url(#borderGradient)' }
 					}}
 				/>
-				<Crosshair values={this.state.crosshairValues}/>
-			</XYPlot>;
+			</XYPlot>
+		);
+	};
 
-		Plot.propTypes = { width: PropTypes.number, measurements: PropTypes.array };
-		Plot.displayName = 'TimeSeriesLineChartPlot';
-		const FlexibleXYPlot = makeWidthFlexible(Plot);
+	render() {
+		const FlexibleXYPlot = makeWidthFlexible(this.Plot);
+		this.Plot.propTypes = {
+			width: PropTypes.number,
+			measurements: PropTypes.array
+		};
+		this.Plot.displayName = 'TimeSeriesLineChartPlot';
 		return <FlexibleXYPlot props={this.props} />;
 	}
 }
