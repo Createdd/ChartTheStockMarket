@@ -16,9 +16,10 @@ class CollapsibleCon extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 	componentWillMount() {
-		this.props.fetchStock('TSLA');
 		this.props.fetchStock('GOOGL');
+		this.props.fetchStock('TSLA');
 	}
+
 
 	handleChange(e) {
 		this.setState({ value: e.target.value });

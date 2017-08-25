@@ -20,22 +20,29 @@ class ChartCon extends React.Component {
 			return <div>Currently no data is available</div>;
 		} else {
 			const arrayColumn = (arr, n) => arr.map(x => x[n]);
-			const col1 = arrayColumn(props.stocks[0].dataset.data, 0);
-      const col2 = arrayColumn(props.stocks[0].dataset.data, 1);
-      const dates = col1.map(date => new Date(date).getTime());
-      const tickValues = calculateTicks(dates);
-
 			let data = [];
-			let len = props.stocks[0].dataset.data.length;
-			for (var i = 0; i < len; i++) {
-				data.push({
-					x: dates[i],
-					y: col2[i]
-				});
-			}
+			let tickValues = [];
+
+			props.stocks.map((stock, ind) => {
+				const col1 = arrayColumn(stock.dataset.data, 0);
+				const col2 = arrayColumn(stock.dataset.data, 1);
+				const dates = col1.map(date => new Date(date).getTime());
+				tickValues.push([]);
+				tickValues[ind] = calculateTicks(dates, ind);
+				let len = stock.dataset.data.length;
+				data.push([]);
+				for (var i = 0; i < len; i++) {
+					data[ind].push({
+						x: dates[i],
+						y: col2[i]
+					});
+				}
+			});
+			console.log(tickValues);
+
 			return (
 				<div>
-					<Chart data={data} tickValues={tickValues}/>
+					<Chart data={data} tickValues={tickValues} />
 				</div>
 			);
 		}

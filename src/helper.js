@@ -1,6 +1,6 @@
 import * as toastr from 'toastr';
 
-export const calculateTicks = (dates) => {
+export const calculateTicks = (dates,ind) => {
   const tick = Math.floor(dates.length / 10);
   const tickValues = [];
   for (var j = 0; j < dates.length; j = j + tick) {
