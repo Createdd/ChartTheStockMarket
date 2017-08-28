@@ -24,14 +24,15 @@ export default class Chart extends React.Component {
 
 	componentWillMount() {}
 
+
 	gradient() {
 		return (
 			<GradientDefs>
 				<linearGradient id="borderGradient" gradientUnits="userSpaceOnUse">
-					<stop offset="10%" stopColor="#455a64" stopOpacity={0.3} />
-					<stop offset="33%" stopColor="#546e7a" stopOpacity={0.3} />
-					<stop offset="66%" stopColor="#37474f" stopOpacity={0.3} />
-					<stop offset="90%" stopColor="#263238" stopOpacity={0.3} />
+					<stop offset="10%" stopColor="#c5cae9" stopOpacity={0.3} />
+					<stop offset="33%" stopColor="#9fa8da" stopOpacity={0.3} />
+					<stop offset="66%" stopColor="#7986cb" stopOpacity={0.3} />
+					<stop offset="90%" stopColor="#3f51b5" stopOpacity={0.3} />
 				</linearGradient>
 			</GradientDefs>
 		);
@@ -52,6 +53,9 @@ export default class Chart extends React.Component {
 			);
 		});
 	}
+	checkValues() {
+		console.log(this.state.crosshairValues);
+	}
 
 	renderCrosshair(props) {
 		return (
@@ -67,6 +71,7 @@ export default class Chart extends React.Component {
 				>
 					<p>
 						Date:
+						{this.checkValues()}
 						{this.state.crosshairValues[0] === undefined
 							? new Date(this.state.crosshairValues[1].x).getMonth() +
 								'-' +
@@ -81,7 +86,7 @@ export default class Chart extends React.Component {
 								? 'No data'
 								: <p key={ind}>
 										{props.stocks[ind] === undefined
-											? 'No data'
+											? 'No data '
 											: props.stocks[ind].dataset.dataset_code +
 												': ' +
 												elem.y +
