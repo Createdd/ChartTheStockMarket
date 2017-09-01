@@ -24,6 +24,11 @@ export default class Chart extends React.Component {
 
 	componentWillMount() {}
 
+	sortData(props) {
+		props.data.sort((a, b) => {
+			return a.length - b.length;
+		});
+	}
 
 	gradient() {
 		return (
@@ -40,6 +45,7 @@ export default class Chart extends React.Component {
 
 	// '#' + (Math.random().toString(16) + '000000').substring(2, 8)
 	renderLines(props) {
+		this.sortData(props);
 		return props.data.map((line, ind) => {
 			return (
 				<LineSeries
@@ -52,9 +58,6 @@ export default class Chart extends React.Component {
 				/>
 			);
 		});
-	}
-	checkValues() {
-		console.log(this.state.crosshairValues);
 	}
 
 	renderCrosshair(props) {
@@ -71,22 +74,21 @@ export default class Chart extends React.Component {
 				>
 					<p>
 						Date:
-						{this.checkValues()}
-						{this.state.crosshairValues[0] === undefined
-							? new Date(this.state.crosshairValues[1].x).getMonth() +
+						{		this.state.crosshairValues[this.state.crosshairValues.length-1] === undefined
+							? new Date(this.state.crosshairValues[this.state.crosshairValues.length].x).getMonth() +
 								'-' +
-								new Date(this.state.crosshairValues[1].x).getFullYear()
-							: new Date(this.state.crosshairValues[0].x).getMonth() +
+								new Date(this.state.crosshairValues[this.state.crosshairValues.length].x).getFullYear()
+							: new Date(this.state.crosshairValues[this.state.crosshairValues.length-1].x).getMonth() +
 								'-' +
-								new Date(this.state.crosshairValues[0].x).getFullYear()}
+								new Date(this.state.crosshairValues[this.state.crosshairValues.length-1].x).getFullYear()}
 					</p>
 					{this.state.crosshairValues.map(
 						(elem, ind) =>
 							elem === undefined
-								? 'No data'
+								? <p key={ind}>No data</p>
 								: <p key={ind}>
 										{props.stocks[ind] === undefined
-											? 'No data '
+											? 'No data'
 											: props.stocks[ind].dataset.dataset_code +
 												': ' +
 												elem.y +
