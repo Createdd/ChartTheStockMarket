@@ -23,14 +23,6 @@ export default class Chart extends React.Component {
 		};
 	}
 
-	componentWillMount() {}
-
-	sortData(props) {
-		props.data.sort((a, b) => {
-			return a.length - b.length;
-		});
-	}
-
 	gradient() {
 		return (
 			<GradientDefs>
@@ -44,9 +36,14 @@ export default class Chart extends React.Component {
 		);
 	}
 
-	// '#' + (Math.random().toString(16) + '000000').substring(2, 8)
+	renderLongestTimeperiod(props) {
+		props.tickValues.sort();
+	}
+
 	renderLines(props) {
-		this.sortData(props);
+		props.data.sort((a, b) => {
+			return a.length - b.length;
+		});
 		return props.data.map((line, ind) => {
 			return (
 				<LineSeries
@@ -117,10 +114,6 @@ export default class Chart extends React.Component {
 		);
 	}
 
-	renderLongestTimeperiod(props) {
-		props.tickValues.sort();
-	}
-
 	Plot = ({ width, props }) => {
 		return (
 			<XYPlot
@@ -130,9 +123,11 @@ export default class Chart extends React.Component {
 				style={{ backgroundColor: '#c2c4c6' }}
 			>
 				{this.renderCrosshair(props)}
+				{this.renderLongestTimeperiod(props)}
+				{this.renderLines(props)}
+				{this.gradient()}
 				<HorizontalGridLines />
 				<VerticalGridLines />
-				{this.renderLongestTimeperiod(props)}
 				<XAxis
 					tickValues={props.tickValues[0]}
 					tickFormat={d =>
@@ -140,8 +135,6 @@ export default class Chart extends React.Component {
 					title="Date"
 				/>
 				<YAxis title="Value" />
-				{this.renderLines(props)}
-				{this.gradient()}
 				<Borders
 					style={{
 						right: { fill: '#c2c4c6' },
