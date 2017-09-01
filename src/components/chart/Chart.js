@@ -13,6 +13,7 @@ import {
 	makeWidthFlexible,
 	Crosshair
 } from 'react-vis';
+import { Colors } from '../../helper';
 
 export default class Chart extends React.Component {
 	constructor(props) {
@@ -50,7 +51,7 @@ export default class Chart extends React.Component {
 			return (
 				<LineSeries
 					data={line}
-					color="red"
+					color={Colors.random()}
 					size={0.1}
 					key={ind}
 					onNearestX={(value, { index }) =>
@@ -74,13 +75,29 @@ export default class Chart extends React.Component {
 				>
 					<p>
 						Date:
-						{		this.state.crosshairValues[this.state.crosshairValues.length-1] === undefined
-							? new Date(this.state.crosshairValues[this.state.crosshairValues.length].x).getMonth() +
+						{this.state.crosshairValues[
+							this.state.crosshairValues.length - 1
+						] === undefined
+							? new Date(
+									this.state.crosshairValues[this.state.crosshairValues.length]
+										.x
+								).getMonth() +
 								'-' +
-								new Date(this.state.crosshairValues[this.state.crosshairValues.length].x).getFullYear()
-							: new Date(this.state.crosshairValues[this.state.crosshairValues.length-1].x).getMonth() +
+								new Date(
+									this.state.crosshairValues[this.state.crosshairValues.length]
+										.x
+								).getFullYear()
+							: new Date(
+									this.state.crosshairValues[
+										this.state.crosshairValues.length - 1
+									].x
+								).getMonth() +
 								'-' +
-								new Date(this.state.crosshairValues[this.state.crosshairValues.length-1].x).getFullYear()}
+								new Date(
+									this.state.crosshairValues[
+										this.state.crosshairValues.length - 1
+									].x
+								).getFullYear()}
 					</p>
 					{this.state.crosshairValues.map(
 						(elem, ind) =>
