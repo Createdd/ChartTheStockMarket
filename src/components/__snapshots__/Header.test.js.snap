@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header render body component 1`] = `
+<nav
+  className="navbar-fixed"
+>
+  <div
+    className="nav-wrapper grey darken-4"
+  >
+    <a
+      className="brand-logo"
+      href="/"
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-line-chart material-icons"
+      />
+      Stock Chart
+    </a>
+  </div>
+</nav>
+`;
+
+exports[`Header should render the whole navbar 1`] = `
+<nav
+  className="navbar-fixed"
+>
+  <div
+    className="nav-wrapper grey darken-4"
+  >
+    <a
+      className="brand-logo"
+      href="/"
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-line-chart material-icons"
+      />
+      Stock Chart
+    </a>
+  </div>
+</nav>
+`;
