@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Collapsible from './Collapsible';
 import { fetchStock, removeStock } from '../../ducks/stocks';
 
-class CollapsibleCon extends React.Component {
+export class CollapsibleCon extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
