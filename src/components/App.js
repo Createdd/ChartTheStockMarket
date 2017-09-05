@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import socketIOClient from "socket.io-client";
 
-
 import Header from './Header';
 import Footer from './Footer';
 import CollapsibleCon from './sideBar/CollapsibleCon';

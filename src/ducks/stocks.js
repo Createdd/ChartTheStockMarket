@@ -1,14 +1,20 @@
 import axios from 'axios';
+import socketIOClient from 'socket.io-client';
 import * as toastr from 'toastr';
+
 import { toastOptions } from '../helper';
 
 // Actions
+const CHECK_DB = 'CHECK_DB';
 const ADD_STOCK = 'ADD_STOCK';
 const REMOVE_STOCK = 'DELETE_STOCK';
 
 // reducer
 export default function Stocks(state = [], action) {
 	switch (action.type) {
+		case CHECK_DB: {
+			return action.data;
+		}
 		case ADD_STOCK: {
 			return [...state, action.stockData];
 		}
@@ -25,6 +31,12 @@ export default function Stocks(state = [], action) {
 }
 
 // actionCreators
+export function getDB(data) {
+	return {
+		type: CHECK_DB,
+		data
+	};
+}
 export function addStock(stockData) {
 	return {
 		type: ADD_STOCK,
@@ -39,7 +51,23 @@ export function removeStock(index) {
 }
 
 // Async actions with thunk
+export function checkDB() {
+	return dispatch =>
+		axios
+			.get('/api/stocks')
+			.then(res => {
+				res.data.map(elem => {
+					dispatch(fetchStock(elem.stockName));
+				});
+				console.log(res);
+			})
+			.catch(err => {
+				console.warn(err);
+			});
+}
+
 export function fetchStock(stockCode) {
+	const socket = socketIOClient('http://127.0.0.1:9000');
 	return dispatch =>
 		axios
 			.get(
@@ -48,6 +76,7 @@ export function fetchStock(stockCode) {
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
+				// socket.emit('addStock', stockCode);
 				// console.log(res.data);
 			})
 			.catch(err => {

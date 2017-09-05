@@ -56,4 +56,12 @@ app.get('/', (req, res) => {
 	res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
+app.get('/api/stocks', (req, res) => {
+  stockModel.find({}, (err, polls, next) => {
+    if (err) return next(err);
+    return res.status(200).json(polls);
+  });
+});
+
+
 module.exports = server;
