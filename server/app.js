@@ -8,36 +8,52 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const stockModel = require('./dbModel');
+
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var db = mongoose.connection.openUri((
+//----DATABASE
+var db = mongoose.connection.openUri(
 	`mongodb://${process.env.REACT_APP_MONGO_USER}:${process.env
 		.REACT_APP_MONGO_PASS}@ds125774.mlab.com:25774/chartstockmarket`
-));
-db.on('error', (err) => {
-  console.log('FAILED to connect to mongoose');
-  console.error(err);
+);
+db.on('error', err => {
+	console.log('FAILED to connect to mongoose');
+	console.error(err);
 });
 db.once('open', () => {
 	console.log('connected to mongoose');
 });
 
-app.get('/', (req, res) => {
-	res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-});
-
+//--------SOCKET
 io.on('connection', function(socket) {
 	console.log('New client connected');
 	socket.emit('stocks', { stocks: ['GOOGL', 'TSLA'] });
-	socket.on('my other event', function(data) {
+	socket.on('addStock', function(data) {
+		var stockItem = new stockModel({
+			stockName: data
+		});
+		stockItem.save((err, res) => {
+			if (err) {
+				console.log(err);
+			} else {
+				io.emit('stockAdded', data);
+				console.log('new stock added!');
+			}
+		});
+
 		console.log(data);
 	});
 	socket.on('disconnect', function() {
 		console.log('Client disconnected');
 	});
+});
+
+app.get('/', (req, res) => {
+	res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
 module.exports = server;
