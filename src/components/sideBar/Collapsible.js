@@ -5,7 +5,7 @@ const Collapsible = props => {
 		return (
 			<li key={ind}>
 				<div className="collapsible-header grey darken-3 blue-grey-text text-lighten-3">
-				<i className="fa fa-minus-circle material-icons red-text text-lighten-4" aria-hidden="true" onClick={(e)=>props.removeStock(ind)} />
+				<i className="fa fa-minus-circle material-icons red-text text-lighten-4" aria-hidden="true" onClick={(e)=>props.removeStock(ind, elem.dataset.dataset_code)} />
 					{elem.dataset.dataset_code}
 					</div>
 				<div className="collapsible-body grey darken-3 blue-grey-text text-lighten-3">

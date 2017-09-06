@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Collapsible from './Collapsible';
-import { checkDB, fetchStock, removeStock } from '../../ducks/stocks';
+import { checkDB, newStock, deleteStock } from '../../ducks/stocks';
 
 export class CollapsibleCon extends React.Component {
 	constructor(props) {
@@ -25,11 +25,11 @@ export class CollapsibleCon extends React.Component {
 	}
 	addStock(e) {
 		e.preventDefault();
-		this.props.fetchStock(this.state.value);
+		this.props.newStock(this.state.value);
 		this.setState({ value: '' });
 	}
-	removeStock(e) {
-		this.props.removeStock(e);
+	removeStock(ind, stockCode) {
+		this.props.deleteStock(ind, stockCode);
 	}
 	render() {
 		return (
@@ -48,7 +48,7 @@ const mapStateToProps = state => ({
 	stocks: state.stocks
 });
 
-export default connect(mapStateToProps, { checkDB, fetchStock, removeStock })(CollapsibleCon);
+export default connect(mapStateToProps, { checkDB, newStock, deleteStock })(CollapsibleCon);
 
 CollapsibleCon.propTypes = {
 	stocks: PropTypes.arrayOf(

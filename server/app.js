@@ -31,21 +31,26 @@ db.once('open', () => {
 //--------SOCKET
 io.on('connection', function(socket) {
 	console.log('New client connected');
-	socket.emit('stocks', { stocks: ['GOOGL', 'TSLA'] });
 	socket.on('addStock', function(data) {
 		var stockItem = new stockModel({
-			stockName: data
+			stockName: data.toUpperCase()
 		});
 		stockItem.save((err, res) => {
 			if (err) {
 				console.log(err);
 			} else {
-				io.emit('stockAdded', data);
-				console.log('new stock added!');
+				console.log(`Added new stock ${data}!`);
 			}
 		});
-
-		console.log(data);
+	});
+	socket.on('removeStock', function(data) {
+		stockModel.remove({ stockName: data }, (err, res) => {
+			if (err) {
+				console.log(err);
+			} else {
+				console.log(`Removed stock ${data}`);
+			}
+		});
 	});
 	socket.on('disconnect', function() {
 		console.log('Client disconnected');
@@ -57,11 +62,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/stocks', (req, res) => {
-  stockModel.find({}, (err, polls, next) => {
-    if (err) return next(err);
-    return res.status(200).json(polls);
-  });
+	stockModel.find({}, (err, polls, next) => {
+		if (err) return next(err);
+		return res.status(200).json(polls);
+	});
 });
-
 
 module.exports = server;

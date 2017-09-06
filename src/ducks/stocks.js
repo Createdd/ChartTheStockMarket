@@ -67,6 +67,23 @@ export function checkDB() {
 }
 
 export function fetchStock(stockCode) {
+	return dispatch =>
+		axios
+			.get(
+				`https://www.quandl.com/api/v3/datasets/WIKI/${stockCode}.json?api_key=${process
+					.env.REACT_APP_QUANDL_KEY}`
+			)
+			.then(res => {
+				dispatch(addStock(res.data));
+				// console.log(res.data);
+			})
+			.catch(err => {
+				console.error(err);
+				toastr['warning'](' ', 'Stock Code cannot be found!');
+			});
+}
+
+export function newStock(stockCode) {
 	const socket = socketIOClient('http://127.0.0.1:9000');
 	return dispatch =>
 		axios
@@ -76,11 +93,20 @@ export function fetchStock(stockCode) {
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
-				// socket.emit('addStock', stockCode);
-				// console.log(res.data);
+				socket.emit('addStock', stockCode);
+				console.log(res.data);
 			})
 			.catch(err => {
 				console.error(err);
 				toastr['warning'](' ', 'Stock Code cannot be found!');
 			});
+}
+
+export function deleteStock(ind, stockCode) {
+	const socket = socketIOClient('http://127.0.0.1:9000');
+	return dispatch => {
+		dispatch(removeStock(ind));
+		socket.emit('removeStock', stockCode);
+		console.log(`Deleted ${stockCode}`);
+	};
 }
