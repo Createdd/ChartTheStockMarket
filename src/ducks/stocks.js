@@ -83,8 +83,8 @@ export function fetchStock(stockCode) {
 			});
 }
 
-export function newStock(stockCode) {
-	const socket = socketIOClient('http://127.0.0.1:9000');
+export function newStock(stockCode, socket) {
+	// const socket = socketIOClient('http://127.0.0.1:9000');
 	return dispatch =>
 		axios
 			.get(
@@ -93,8 +93,11 @@ export function newStock(stockCode) {
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
+				// socket.on('update', data => {
+				// 	console.log(' ------- update !!!!!!!' + data.stockName);
+				// });
 				socket.emit('addStock', stockCode);
-				console.log(res.data);
+				// console.log(res.data);
 			})
 			.catch(err => {
 				console.error(err);

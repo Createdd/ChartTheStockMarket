@@ -35,11 +35,12 @@ io.on('connection', function(socket) {
 		var stockItem = new stockModel({
 			stockName: data.toUpperCase()
 		});
+		socket.emit('update', stockItem);
 		stockItem.save((err, res) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log(`Added new stock ${data}!`);
+				console.log(`Added new stock ${data.toUpperCase()}!`);
 			}
 		});
 	});
