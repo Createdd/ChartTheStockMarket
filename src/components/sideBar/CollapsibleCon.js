@@ -9,11 +9,11 @@ import { checkDB, newStock, deleteStock } from '../../ducks/stocks';
 export class CollapsibleCon extends React.Component {
 	constructor(props) {
 		super(props);
-		const socket = io('http://127.0.0.1:9000');
+		const socket = io('http://localhost:9000/');
 		this.state = {
 			value: '',
 			response: '',
-			div: 'Hello',
+			lastAdd: '',
 			socket: socket
 		};
 		this.addStock = this.addStock.bind(this);
@@ -25,24 +25,13 @@ export class CollapsibleCon extends React.Component {
 	}
 
 	componentDidMount() {
-		const socket = io('http://127.0.0.1:9000');
-		socket.on('connect', () => {
-			return console.warn('socket working! id: ' + socket.id);
+		this.state.socket.on('connect', () => {
+			return console.warn('socket working! id: ' + this.state.socket.id);
 		});
-
-		socket.on(
-			'update',
-			setTimeout(function(data) {
-				data => {
-					console.log(' ------- update !!!!!!!' + data.stockName);
-				};
-			}, 3000)
-		);
-
-		socket.on('update', data => this.setState({ div: data.stockName }));
-		console.warn(this.state.div);
+		this.state.socket.on('update', () => {
+			console.log('object');
+		});
 	}
-
 	handleChange(e) {
 		this.setState({ value: e.target.value });
 	}
@@ -57,7 +46,6 @@ export class CollapsibleCon extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.state.div}
 				<Collapsible
 					stocks={this.props.stocks}
 					addStock={this.addStock}

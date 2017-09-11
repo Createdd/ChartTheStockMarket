@@ -84,21 +84,19 @@ export function fetchStock(stockCode) {
 }
 
 export function newStock(stockCode, socket) {
+	socket.emit('update', stockCode);	
 	// const socket = socketIOClient('http://127.0.0.1:9000');
 	return dispatch =>
 		axios
 			.get(
 				`https://www.quandl.com/api/v3/datasets/WIKI/${stockCode}.json?api_key=${process
-					.env.REACT_APP_QUANDL_KEY}`
+				.env.REACT_APP_QUANDL_KEY}`
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
-				// socket.on('update', data => {
-				// 	console.log(' ------- update !!!!!!!' + data.stockName);
-				// });
-				socket.emit('addStock', stockCode);
-				// console.log(res.data);
+				console.log(res.data);
 			})
+			.then(socket.emit('addStock', stockCode))
 			.catch(err => {
 				console.error(err);
 				toastr['warning'](' ', 'Stock Code cannot be found!');
