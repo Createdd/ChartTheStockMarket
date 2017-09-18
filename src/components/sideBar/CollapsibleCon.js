@@ -21,7 +21,7 @@ export class CollapsibleCon extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 	componentWillMount() {
-		this.props.checkDB();
+		this.props.checkDB(this.props.stocks);
 	}
 
 	componentDidMount() {
@@ -29,7 +29,7 @@ export class CollapsibleCon extends React.Component {
 			return console.warn('socket working! id: ' + this.state.socket.id);
 		});
 		this.state.socket.on('update', () => {
-			console.log('object');
+			this.props.checkDB(this.props.stocks);
 		});
 	}
 	handleChange(e) {

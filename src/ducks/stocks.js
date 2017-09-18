@@ -51,15 +51,42 @@ export function removeStock(index) {
 }
 
 // Async actions with thunk
-export function checkDB() {
+export function checkDB(stocks) {
 	return dispatch =>
 		axios
 			.get('/api/stocks')
 			.then(res => {
-				res.data.map(elem => {
-					dispatch(fetchStock(elem.stockName));
-				});
-				console.log(res);
+				if (stocks.length === 0) {
+					res.data.map(elem => {
+						dispatch(fetchStock(elem.stockName));
+					});
+				} else {
+					let diff = [];
+					res.data.map((item, i) => {
+						if (i < stocks.length) {
+							console.warn(i, stocks.length);
+							if (res.data[i].stockName !== stocks[i].dataset.dataset_code) {
+								diff.push({
+									stockName: item.stockName
+								});
+							}
+						} else if (i === stocks.length) {
+							diff.push({
+								stockName: item.stockName
+							});
+						}
+					});
+
+					console.warn('Store stocks are ', stocks);
+					console.log('The diff is ', diff);
+					console.warn('DB has ', res.data);
+
+					diff.map(elem => {
+						dispatch(fetchStock(elem.stockName));
+					});
+					diff = [];
+					// console.log(res);
+				}
 			})
 			.catch(err => {
 				console.warn(err);
@@ -84,13 +111,13 @@ export function fetchStock(stockCode) {
 }
 
 export function newStock(stockCode, socket) {
-	socket.emit('update', stockCode);	
+	socket.emit('update', stockCode);
 	// const socket = socketIOClient('http://127.0.0.1:9000');
 	return dispatch =>
 		axios
 			.get(
 				`https://www.quandl.com/api/v3/datasets/WIKI/${stockCode}.json?api_key=${process
-				.env.REACT_APP_QUANDL_KEY}`
+					.env.REACT_APP_QUANDL_KEY}`
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
