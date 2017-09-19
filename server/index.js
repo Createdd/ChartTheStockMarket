@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const stockModel = require('./dbModel');
 
-server.listen(9000);
+server.listen(process.env.PORT || 9000);
 
 app.use(morgan('dev'));
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
