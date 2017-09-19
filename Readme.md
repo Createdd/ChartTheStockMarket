@@ -8,7 +8,7 @@
 # Chart the Stock Market
 [![Travis CI](https://travis-ci.org/DDCreationStudios/ChartTheStockMarket.svg?branch=master)](https://travis-ci.org/DDCreationStudios/ChartTheStockMarket) [![Dependency Status](https://gemnasium.com/badges/github.com/DDCreationStudios/ChartTheStockMarket.svg)](https://gemnasium.com/github.com/DDCreationStudios/ChartTheStockMarket) [![Heroku](http://heroku-badge.herokuapp.com/?app=createdd-stockmarketchart&style=flat&svg=1)](https://createdd-stockmarketchart.herokuapp.com/)
 
-<img src="http://g.recordit.co/RlH1aQ7o9Q.gif" alt="gif"/>
+<img src="http://g.recordit.co/16EkuCTQSd.gif" alt="gif"/>
 
 ## See live on Heroku
 
@@ -23,7 +23,7 @@
 - [X] I can view a graph displaying the recent trend lines for each added stock.
 - [X] I can add new stocks by their symbol name.
 - [X] I can remove stocks.
-- [ ]  I can see changes in real-time when any other user adds or removes a stock. For this you will need to use Web Sockets.
+- [X]  I can see changes in real-time when any other user adds or removes a stock. For this you will need to use Web Sockets.
 
 ## A FreeCodeCamp Challenge
 
