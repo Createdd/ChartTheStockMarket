@@ -9,7 +9,7 @@ import { checkDB, newStock, deleteStock } from '../../ducks/stocks';
 export class CollapsibleCon extends React.Component {
 	constructor(props) {
 		super(props);
-		const socket = io('http://localhost:9000/');
+		const socket = io('https://createdd-stockmarketchart.herokuapp.com/');
 		this.state = {
 			value: '',
 			response: '',

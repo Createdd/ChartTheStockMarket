@@ -129,7 +129,7 @@ export function newStock(stockCode, socket) {
 }
 
 export function deleteStock(ind, stockCode) {
-	const socket = socketIOClient('http://127.0.0.1:9000');
+	const socket = socketIOClient('https://createdd-stockmarketchart.herokuapp.com/');
 	socket.emit('removeStock', stockCode);
 	return dispatch => {
 		dispatch(removeStock(ind));
