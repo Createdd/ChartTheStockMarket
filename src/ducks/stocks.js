@@ -60,11 +60,12 @@ export function checkDB(stocks) {
 					res.data.map(elem => {
 						dispatch(fetchStock(elem.stockName));
 					});
+				} else if (res.data.length < stocks.length) {
+					dispatch(removeStock(stocks.length - 1));
 				} else {
 					let diff = [];
 					res.data.map((item, i) => {
 						if (i < stocks.length) {
-							console.warn(i, stocks.length);
 							if (res.data[i].stockName !== stocks[i].dataset.dataset_code) {
 								diff.push({
 									stockName: item.stockName
@@ -74,12 +75,10 @@ export function checkDB(stocks) {
 							diff.push({
 								stockName: item.stockName
 							});
+						} else {
+							diff = [];
 						}
 					});
-
-					console.warn('Store stocks are ', stocks);
-					console.log('The diff is ', diff);
-					console.warn('DB has ', res.data);
 
 					diff.map(elem => {
 						dispatch(fetchStock(elem.stockName));
@@ -112,7 +111,6 @@ export function fetchStock(stockCode) {
 
 export function newStock(stockCode, socket) {
 	socket.emit('update', stockCode);
-	// const socket = socketIOClient('http://127.0.0.1:9000');
 	return dispatch =>
 		axios
 			.get(
@@ -132,9 +130,9 @@ export function newStock(stockCode, socket) {
 
 export function deleteStock(ind, stockCode) {
 	const socket = socketIOClient('http://127.0.0.1:9000');
+	socket.emit('removeStock', stockCode);
 	return dispatch => {
 		dispatch(removeStock(ind));
-		socket.emit('removeStock', stockCode);
 		console.log(`Deleted ${stockCode}`);
 	};
 }

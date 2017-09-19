@@ -31,6 +31,9 @@ export class CollapsibleCon extends React.Component {
 		this.state.socket.on('update', () => {
 			this.props.checkDB(this.props.stocks);
 		});
+		this.state.socket.on('removed', () => {
+			this.props.checkDB(this.props.stocks);
+		});
 	}
 	handleChange(e) {
 		this.setState({ value: e.target.value });

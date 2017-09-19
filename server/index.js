@@ -66,6 +66,7 @@ io.on('connection', function(socket) {
 				console.log(`Removed stock ${data}`);
 			}
 		});
+		socket.broadcast.emit('removed', 'stockItem');
 	});
 	socket.on('disconnect', function() {
 		console.log('Client disconnected');
