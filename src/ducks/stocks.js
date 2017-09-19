@@ -119,7 +119,7 @@ export function newStock(stockCode, socket) {
 			)
 			.then(res => {
 				dispatch(addStock(res.data));
-				console.log(res.data);
+				// console.log(res.data);
 			})
 			.then(socket.emit('addStock', stockCode))
 			.catch(err => {
