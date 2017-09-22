@@ -48,5 +48,10 @@ There are already issues open! Feel free to add feedback: [![GitHub issues](http
 |a free and open-source cross-platform document-oriented database program|Fast, unopinionated, minimalist web framework for node.|a JavaScript library for building user interfaces|a JavaScript runtime built on Chrome's V8 JavaScript engine|
 
 
+## Extras
+- See documentation article [here.](https://github.com/DDCreationStudios/Writing/blob/master/articles/StockMarketChart.md)
+- See 5min timelapse [here.](https://www.youtube.com/watch?v=8d6829bIxYg)
+- See 1hour relaxing coding session [here.](https://www.youtube.com/watch?v=iPnyrrWJpLU)
+
 
 [![forthebadge](http://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/built-with-science.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/as-seen-on-tv.svg)](http://forthebadge.com)
